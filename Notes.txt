@@ -1,0 +1,182 @@
+what is AWS Athena ?
+
+ANS : -- Amazon Athena is an interactive query service that makes it easy to analyze data in Amazon S3 using standard SQL. Athena is serverless, so there is no infrastructure to manage, and you pay only for the queries that you run.
+
+-- Athena is easy to use. Simply point to your data in Amazon S3, define the schema, and start querying using standard SQL. Most results are delivered within seconds. With Athena, there’s no need for complex ETL jobs to prepare your data for analysis. This makes it easy for anyone with SQL skills to quickly analyze large-scale datasets.
+
+-- Athena is out-of-the-box integrated with Amazon Glue Data Catalog, allowing you to create a unified metadata repository across various services, crawl data sources to discover schemas and populate your Catalog with new and modified table and partition definitions, and maintain schema versioning. You can also use Glue’s fully-managed ETL capabilities to transform data or convert it into columnar formats to optimize cost and improve performance.
+
+Benefits :
+ 
+1  Interactive Performance Even for Large Datasets :
+
+With Amazon Athena, you don't have to worry about having enough compute resources to get fast, interactive query performance. Amazon Athena automatically executes queries in parallel, so most results come back within seconds.
+
+2  Built on Presto, Runs Standard SQL
+
+Amazon Athena uses Presto with ANSI SQL support and works with a variety of standard data formats, including CSV, JSON, ORC, Avro, and Parquet. Athena is ideal for quick, ad-hoc querying but it can also handle complex analysis, including large joins, window functions, and arrays. Amazon Athena is highly available; and executes queries using compute resources across multiple facilities and multiple devices in each facility. Amazon Athena uses Amazon S3 as its underlying data store, making your data highly available and durable.
+
+3  Serverless, No ETL
+
+Athena is serverless. You can quickly query your data without having to setup and manage any servers or data warehouses. Just point to your data in Amazon S3, define the schema, and start querying using the built-in query editor. Amazon Athena allows you to tap into all your data in S3 without the need to set up complex processes to extract, transform, and load the data (ETL).
+
+4  Only Pay for Data Scanned
+
+With Amazon Athena, you pay only for the queries that you run. You are charged ¥41.20 per terabyte scanned by your queries. You can save from 30% to 90% on your per-query costs and get better performance by compressing, partitioning, and converting your data into columnar formats. Athena queries data directly in Amazon S3. There are no additional storage charges beyond S3.
+
+
+Features :
+
+1  Fast Performance
+
+With Amazon Athena, you don’t have to worry about managing or tuning clusters to get fast performance. Athena is optimized for fast performance with Amazon S3. Athena automatically executes queries in parallel, so that you get query results in seconds, even on large datasets.
+
+2  Easy to Get Started
+
+To get started, log into the Athena console, define your schema using the console wizard or by entering DDL statements, and immediately start querying using the built-in query editor. You can also use Amazon Glue to automatically crawl data sources to discover data and populate your Data Catalog with new and modified table and partition definitions. Results are displayed in the console within seconds, and automatically written to a location of your choice in S3. You can also download them to your desktop. With Athena, there’s no need for complex ETL jobs to prepare your data for analysis. This makes it easy for anyone with SQL skills to quickly analyze large-scale datasets.
+
+3  Serverless, Zero Infrastructure, Zero Administration
+
+Amazon Athena is serverless, so there is no infrastructure to manage. You don’t need to worry about configuration, software updates, failures or scaling your infrastructure as your datasets and number of users grow. Athena automatically takes care of all of this for you, so you can focus on the data, not the infrastructure.
+
+4  Pay per Query
+
+With Amazon Athena, you pay only for the queries that you run. You are charged based on the amount of data scanned by each query. You can get significant cost savings and performance gains by compressing, partitioning, or converting your data to a columnar format, because each of those operations reduces the amount of data that Athena needs to scan to execute a query.
+
+5  Easy to Query, Just Use Standard SQL
+
+Amazon Athena uses Presto, an open source, distributed SQL query engine optimized for low latency, ad hoc analysis of data. This means you can run queries against large datasets in Amazon S3 using ANSI SQL, with full support for large joins, window functions, and arrays. Athena supports a wide variety of data formats such as CSV, JSON, ORC, Avro, or Parquet. You can also connect to Athena from a wide variety of BI tools using Athena's JDBC driver.
+
+6  Highly Available & Durable
+
+Amazon Athena is highly available and executes queries using compute resources across multiple facilities, automatically routing queries appropriately if a particular facility is unreachable. Athena uses Amazon S3 as its underlying data store, making your data highly available and durable. Amazon S3 provides durable infrastructure to store important data and is designed for durability of 99.999999999% of objects. Your data is redundantly stored across multiple facilities and multiple devices in each facility.
+
+7  Secure
+
+Amazon Athena allows you to control access to your data by using Amazon Identity and Access Management (IAM) policies, access control lists (ACLs), and Amazon S3 bucket policies. With IAM policies, you can grant IAM users fine-grained control to your S3 buckets. By controlling access to data in S3, you can restrict users from querying it using Athena. Athena also allows you to easily query encrypted data stored in Amazon S3 and write encrypted results back to your S3 bucket. Both, server-side encryption and client-side encryption are supported.
+
+
+Different ways to access Athena :
+
+1 AWS console
+2 Athena API 
+3 Athena CLI 
+4 JDBC connection
+
+-- it integrates with AWS Glue Data Catalog , it is ETL Tool
+
+-- it also integrates with Amazon Quicksight for data visualization 
+
+
+Why Athena got popular:
+
+-- used by data Analysts  query large S3 data statements
+
+-- No need to spin up serveres or Hadoop clusters
+
+ Athena Use cases :
+
+-- analyze CloudTrail/CloudFront/VPC/ELB logs
+-- integration trough ODBC/JDBC with other visualization tools
+-- Ad-hoc logs analysis
+
+Athena Cost Model : 
+
+-- pay only for queries
+
+- $5 per TB data Scanned
+- charged for the no.of bytes scanned (with min 10MB PER Query)
+- NO charge for DDL(CREATE,ALTER,DROP) and failed quaries
+- charges for cancelled queries (for the data scanned)
+
+-- How to save cost?
+
+- Columnar formats(Parquet and ORC)
+- using partitions
+- compressions(gzip,snappy)
+- number of files(more related performance optimization) : Size of files stored in the s3 , it should be min 10MB to 50MB then Athena should not spend effort in scanning multiple small files 
+
+
+-- Athena - creating tablesm
+
+-- create table using 
+
+- DDL Commands
+- AWS Glue crawler
+- JDBC driver
+- create table wizard -- through AWS console
+
+Note : only EXTERNAL tables re created in the Athena if u dont provides EXTERNAL keyword , u will get error
+
+-- Athena queries
+
+- quer results and metadata stored in s3 
+- u specify the specific folder in s3 to store the output
+- stored procedures not supported
+- certain DDL Operations are also not supported
+- Athena federated query (preview feature) : when u query the data , u provide s3 folder so, with federated queries u can combine the results from multiple data eg dynamoDB, AWS storage service,
+
+
+---------------Practicals---------------------
+
+Step 1 : create s3 bucket and insert some .csv data 
+
+--  insert some  data in the bucket 
+
+--   create one folder inside bucket and go to google and search for sample .csv files downlaod and upload in the s3 bucket 
+
+Step 2 : Glue
+
+-- open glue in console
+
+-- glue --> left panel data Catalog --> crawlers --> add crawlers --> give name of ur crawler --> not yet --> add a data source --> choose s3 --> copy uri of ur bucket and paste in S3 path --> click on create new role , give name of ur role and select nxt --> click on create new database --> give name of ur database , nxt --> frequency = on-demand --> create crawler
+
+-- now try to run the crawler , 
+
+--  u can also check the logs in cloudwatch 
+
+-- once u done with the running part , a table will added to the database , table name is same as the folder name of s3 that u have uploaded 
+
+--  if ur data is not match , then u can also do edit ur schema 
+
+
+step 3 : Athena
+
+-- open Athena in the console
+
+-- in the left panel u will see the database and table , u can check all the coloums of ur table
+
+-- now do queries , before that u should add destination to store our outputs in the s3 bucket 
+
+-- go to s3 buckets create one folder in the bucket to store the outputs
+
+-- now try to query in athena editor
+
+-- SELECT * FROM "weather-database"."weather_csv" limit 10;
+
+above is eg query , u can replace with ur details 
+
+weather-database = database name 
+
+weather_csv = table name
+
+
+NOTE : if u r getting zero records but query is successfull then do 
+
+ur s3 location is like this 
+
+s3://doc-example-bucket/table1.csv 
+
+-- to get avoid from this error , jst create one sub-folder and upload .csv file in that subfolder 
+
+s3://doc-example-bucket/table1/table1.csv
+
+
+
+-- in the crawler location u have to give like this , then u won't get any error
+
+s3://doc-example-bucket/table1/
+
+
+
+
